@@ -13,17 +13,19 @@ public class DeadLock {
       return name;
     }
 
-    public synchronized void bow(Friend bower) {
+    public void bow(Friend bower) {
       /*Добавил в метод блокировку по обоим объектам, чтобы избежать взаимной блокировки*/
-      synchronized (bower){
+      synchronized (this){
         System.out.format("%s: %s подстрелил меня!\n", this.name, bower.getName());
         System.out.format("%s: стреляю в ответ!\n", this.name);
-        bower.bowBack(this);
       }
+      bower.bowBack(this);
     }
 
-    public synchronized void bowBack(Friend bower) {
+    public void bowBack(Friend bower) {
+      synchronized (this){
       System.out.format("%s: %s подстрелил меня!\n", this.name, bower.getName());
+      }
     }
   }
 
