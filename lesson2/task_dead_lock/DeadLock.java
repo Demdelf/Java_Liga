@@ -14,7 +14,7 @@ public class DeadLock {
     }
 
     public void bow(Friend bower) {
-      /*Добавил в метод блокировку по обоим объектам, чтобы избежать взаимной блокировки*/
+      /*Изменил синхронизацию всего метода только на вывод в консоль*/
       synchronized (this){
         System.out.format("%s: %s подстрелил меня!\n", this.name, bower.getName());
         System.out.format("%s: стреляю в ответ!\n", this.name);
