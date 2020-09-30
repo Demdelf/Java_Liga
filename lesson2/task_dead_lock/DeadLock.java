@@ -24,7 +24,7 @@ public class DeadLock {
 
     public void bowBack(Friend bower) {
       synchronized (this){
-      System.out.format("%s: %s подстрелил меня!\n", this.name, bower.getName());
+        System.out.format("%s: %s подстрелил меня!\n", this.name, bower.getName());
       }
     }
   }
