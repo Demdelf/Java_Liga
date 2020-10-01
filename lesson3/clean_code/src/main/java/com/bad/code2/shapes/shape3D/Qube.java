@@ -2,6 +2,7 @@ package com.bad.code2.shapes.shape3D;
 
 /**
  * Реализация объёмной фигуры - куб
+ *
  */
 public class Qube implements Shape3D {
 

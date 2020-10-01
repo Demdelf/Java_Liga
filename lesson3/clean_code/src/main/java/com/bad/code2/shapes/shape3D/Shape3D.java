@@ -4,6 +4,7 @@ import com.bad.code2.shapes.Shape;
 
 /**
  * Интерфейс объёмной фигуры
+ *
  */
 public interface Shape3D extends Shape {
 

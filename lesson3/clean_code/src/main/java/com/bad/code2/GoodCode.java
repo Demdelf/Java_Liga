@@ -5,6 +5,7 @@ import com.bad.code2.shapes.shape3D.Qube;
 
 /**
  * Пример хорошего кода
+ *
  */
 public class GoodCode {
     public static void main(String... args) {

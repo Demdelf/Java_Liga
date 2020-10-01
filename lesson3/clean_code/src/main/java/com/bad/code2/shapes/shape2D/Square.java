@@ -4,6 +4,7 @@ import com.bad.code2.shapes.Shape;
 
 /**
  * Реализация фигуры - квадрат
+ *
  */
 public class Square implements Shape {
 

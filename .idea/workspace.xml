@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="46fe4830-122d-4834-b75b-28607538a406" name="Default Changelist" comment="Style-code сделал рефакторинг">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Maslov_DA_Java_Liga/META-INF/Maslov_DA_Java_Liga.kotlin_module" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Maslov_DA_Java_Liga/com/bad/code2/GoodCode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Maslov_DA_Java_Liga/com/bad/code2/shapes/Shape.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Maslov_DA_Java_Liga/com/bad/code2/shapes/shape2D/Square.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Maslov_DA_Java_Liga/com/bad/code2/shapes/shape3D/Qube.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Maslov_DA_Java_Liga/com/bad/code2/shapes/shape3D/Shape3D.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Maslov_DA_Java_Liga/task_dead_lock/DeadLock$Friend.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Maslov_DA_Java_Liga/task_dead_lock/DeadLock.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Maslov_DA_Java_Liga/task_four_millions/FourMillions$Counter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Maslov_DA_Java_Liga/task_four_millions/FourMillions.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lesson3/clean_code/src/main/java/com/bad/code2/GoodCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/lesson3/clean_code/src/main/java/com/bad/code2/GoodCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lesson3/clean_code/src/main/java/com/bad/code2/shapes/Shape.java" beforeDir="false" afterPath="$PROJECT_DIR$/lesson3/clean_code/src/main/java/com/bad/code2/shapes/Shape.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lesson3/clean_code/src/main/java/com/bad/code2/shapes/shape2D/Square.java" beforeDir="false" afterPath="$PROJECT_DIR$/lesson3/clean_code/src/main/java/com/bad/code2/shapes/shape2D/Square.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lesson3/clean_code/src/main/java/com/bad/code2/shapes/shape3D/Qube.java" beforeDir="false" afterPath="$PROJECT_DIR$/lesson3/clean_code/src/main/java/com/bad/code2/shapes/shape3D/Qube.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lesson3/clean_code/src/main/java/com/bad/code2/shapes/shape3D/Shape3D.java" beforeDir="false" afterPath="$PROJECT_DIR$/lesson3/clean_code/src/main/java/com/bad/code2/shapes/shape3D/Shape3D.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1iEQ77gCZGyzIJF2nxN24zSa4d7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/lesson3/clean_code/src" />
+    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+  </component>
+  <component name="RunManager" selected="Application.GoodCode">
+    <configuration name="DeadLock" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="task_dead_lock.DeadLock" />
+      <module name="Maslov_DA_Java_Liga" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="task_dead_lock.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GoodCode" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.bad.code2.GoodCode" />
+      <module name="Maslov_DA_Java_Liga" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bad.code2.shapes.shape2D.shape3D.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.GoodCode" />
+        <item itemvalue="Application.DeadLock" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="46fe4830-122d-4834-b75b-28607538a406" name="Default Changelist" comment="" />
+      <created>1601470101261</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1601470101261</updated>
+      <workItem from="1601470112017" duration="688000" />
+      <workItem from="1601474144323" duration="271000" />
+      <workItem from="1601552184760" duration="910000" />
+      <workItem from="1601553132713" duration="7200000" />
+    </task>
+    <task id="LOCAL-00001" summary="исправил комменты">
+      <created>1601474377073</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1601474377111</updated>
+    </task>
+    <task id="LOCAL-00002" summary="сделал рефакторинг">
+      <created>1601556599168</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1601556599168</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Style-code сделал рефакторинг">
+      <created>1601559252971</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1601559252971</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="исправил комменты" />
+    <MESSAGE value="сделал рефакторинг" />
+    <MESSAGE value="Style-code сделал рефакторинг" />
+    <option name="LAST_COMMIT_MESSAGE" value="Style-code сделал рефакторинг" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2472" y="178" width="816" height="729" key="#Intentions" timestamp="1601554388613">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2472" y="178" width="816" height="729" key="#Intentions/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601554388613" />
+    <state x="2643" y="323" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601561695686">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2643" y="323" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601561695686" />
+    <state x="2728" y="409" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1601553155004">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2728" y="409" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601553155004" />
+    <state x="2479" y="445" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1601556161439">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2479" y="445" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601556161439" />
+    <state x="2505" y="111" key="CommitChangelistDialog2" timestamp="1601559599656">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2505" y="111" key="CommitChangelistDialog2/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601559599656" />
+    <state x="2012" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1601556713874">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2012" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601556713874" />
+    <state x="2660" y="275" key="FileChooserDialogImpl" timestamp="1601553002376">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2660" y="275" key="FileChooserDialogImpl/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601553002376" />
+    <state width="938" height="274" key="GridCell.Tab.0.bottom" timestamp="1601556195129">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="938" height="274" key="GridCell.Tab.0.bottom/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601556195129" />
+    <state width="938" height="274" key="GridCell.Tab.0.center" timestamp="1601556195129">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="938" height="274" key="GridCell.Tab.0.center/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601556195129" />
+    <state width="938" height="274" key="GridCell.Tab.0.left" timestamp="1601556195129">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="938" height="274" key="GridCell.Tab.0.left/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601556195129" />
+    <state width="938" height="274" key="GridCell.Tab.0.right" timestamp="1601556195129">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="938" height="274" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601556195129" />
+    <state x="2381" y="162" key="SettingsEditor" timestamp="1601553458068">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2381" y="162" key="SettingsEditor/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601553458068" />
+    <state x="2472" y="253" key="Vcs.Push.Dialog.v2" timestamp="1601559259016">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2472" y="253" key="Vcs.Push.Dialog.v2/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601559259016" />
+    <state x="2695" y="298" key="chooseDestDirectoryDialog" timestamp="1601553779954">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2695" y="298" key="chooseDestDirectoryDialog/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601553779954" />
+    <state x="2576" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1601474258274">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2576" y="344" key="com.intellij.ide.util.TipDialog/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601474258274" />
+    <state x="2689" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1601552797954">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2689" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601552797954" />
+    <state x="2543" y="225" key="search.everywhere.popup" timestamp="1601554023487">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2543" y="225" key="search.everywhere.popup/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601554023487" />
+    <state x="2710" y="311" key="svn.repositoryBrowser" timestamp="1601552907016">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2710" y="311" key="svn.repositoryBrowser/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601552907016" />
+  </component>
+</project>

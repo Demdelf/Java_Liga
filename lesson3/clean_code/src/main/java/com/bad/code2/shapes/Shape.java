@@ -2,6 +2,7 @@ package com.bad.code2.shapes;
 
 /**
  * Интерфейс фигуры
+ *
  */
 public interface Shape {
     /**
