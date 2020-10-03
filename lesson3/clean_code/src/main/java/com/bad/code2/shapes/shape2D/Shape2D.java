@@ -1,10 +1,9 @@
-package com.bad.code2.shapes.shape3D;
+package com.bad.code2.shapes.shape2D;
 
 /**
- * Интерфейс объёмной фигуры
+ * Интерфейс фигуры
  */
-public interface Shape3D {
-
+public interface Shape2D {
     /**
      * Возвращает центральную точку фигуры по оси X
      * @return центральная точка фигуры по оси X
@@ -18,14 +17,8 @@ public interface Shape3D {
     Double getCenterY();
 
     /**
-     * Возвращает центральную точку фигуры по оси Z
-     * @return центральная точка фигуры по оси Z
+     * Считает площадь фигуры
+     * @return площадь фигуры
      */
-    Double getCenterZ();
-
-    /**
-     * Возвращает объём фигуры
-     * @return объём фигуры
-     */
-    Double getVolume();
+    Double getArea();
 }

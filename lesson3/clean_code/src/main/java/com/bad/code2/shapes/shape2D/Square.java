@@ -1,12 +1,9 @@
 package com.bad.code2.shapes.shape2D;
 
-import com.bad.code2.shapes.Shape;
-
 /**
  * Реализация фигуры - квадрат
- *
  */
-public class Square implements Shape {
+public class Square implements Shape2D {
 
     /**
      * центральная точка квадрата по оси X
@@ -38,9 +35,7 @@ public class Square implements Shape {
         return y;
     }
 
-    /**
-     * @return Площадь квадрата
-     */
+    @Override
     public Double getArea() {
         return edgeSize * edgeSize;
     }
