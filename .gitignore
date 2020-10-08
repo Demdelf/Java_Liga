@@ -6,7 +6,7 @@ node_modules
 classes
 target
 logs
-log
+lesson4/log
 /src/main/resources/static
 jspm_packages
 tmp
