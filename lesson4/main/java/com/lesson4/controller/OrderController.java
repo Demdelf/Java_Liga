@@ -28,6 +28,6 @@ public class OrderController {
     @RequestMapping(value = "/api/v1/order", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> createOrder(@RequestBody Order order) {
         Order createdOrder = orderService.createOrder(order);
-        return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
+        return new ResponseEntity<>(createdOrder, HttpStatus.OK);
     }
 }

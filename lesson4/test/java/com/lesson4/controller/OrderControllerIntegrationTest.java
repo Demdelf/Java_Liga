@@ -33,7 +33,7 @@ public class OrderControllerIntegrationTest {
         mvc.perform(post("/api/v1/order")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(order)))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(content().json("{\"id\":1,\"name\":\"order\",\"price\":10}"));
     }
 }
