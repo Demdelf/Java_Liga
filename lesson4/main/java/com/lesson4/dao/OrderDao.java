@@ -1,6 +1,7 @@
 package com.lesson4.dao;
 
 import com.lesson4.model.Order;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -9,30 +10,17 @@ import org.springframework.stereotype.Repository;
  * DAO для обработки заказов
  */
 @Repository
+@RequiredArgsConstructor
 public class OrderDao {
-
     /**
      * Шаблон строки для запроса в базу данных
      */
     private static final String SQL_INSERT =
             "INSERT INTO `Order` (`name`, `price`, `customer_id`) VALUES (?, ? , ?);";
-
-    /**
-     * Строитель для фабрики DataSource
-     */
-    DataSourceBuilder dataSourceBuilder;
-    {
-        dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.driverClassName("org.h2.Driver");
-        dataSourceBuilder.url("jdbc:h2:mem:order");
-        dataSourceBuilder.username("sa");
-        dataSourceBuilder.password("qwerty");
-    }
-
     /**
      * Исполнитель запросов к базе данных
      */
-    private final JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSourceBuilder.build());
+    private final JdbcTemplate jdbcTemplate;
 
     /**
      * Добавляет заказ в базу данных
@@ -55,3 +43,4 @@ public class OrderDao {
         return jdbcTemplate.queryForObject(sql, new Object[] { orderName }, Integer.class);
     }
 }
+

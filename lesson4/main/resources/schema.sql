@@ -10,3 +10,13 @@ CREATE TABLE IF NOT EXISTS `Order` (
      `price`        INTEGER  NOT NULL,
      `customer_id`        INTEGER
 );
+
+INSERT INTO `Customer` (
+
+  `name`,
+  `email`
+) VALUES (
+
+  'John',
+  'john@test.com'
+);
