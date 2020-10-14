@@ -30,6 +30,6 @@ public class OrderControllerTest {
     void createOrder() throws Exception {
         Order order = new Order("order", 10);
         Mockito.when(orderService.createOrder(order)).thenReturn(order);
-        Assertions.assertEquals(order, orderController.createOrder(order));
+        Assertions.assertEquals(new ResponseEntity<>(createdOrder, HttpStatus.OK), orderController.createOrder(order));
     }
 }
