@@ -37,10 +37,7 @@ public class OrderDaoTest {
     @DisplayName("Создание заказа")
     void createOrder() throws Exception {
         Order order = new Order("order", 10);
-        order.setId(1);
-//        Mockito.when(keyHolder.getKey()).thenReturn(1);
         Mockito.doReturn(1).when(keyHolder).getKey();
-        Mockito.when(orderDao.createOrder(order)).thenReturn(order);
         Assertions.assertEquals(order, orderDao.createOrder(order));
     }
 
