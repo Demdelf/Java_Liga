@@ -8,33 +8,40 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 /**
  * Unit-тесты для OrderDao
  */
 public class OrderDaoTest {
-    @Mock
     private OrderDao orderDao;
+
+    @Mock
+    private JdbcTemplate jdbcTemplate;
+
+
+    private KeyHolder keyHolder;
 
     @BeforeEach
     public void init(){
         MockitoAnnotations.initMocks(this);
+        orderDao = new OrderDao(jdbcTemplate);
+        keyHolder = Mockito.spy(new GeneratedKeyHolder());
+        orderDao.keyHolder = keyHolder;
     }
 
     @Test
     @DisplayName("Создание заказа")
     void createOrder() throws Exception {
         Order order = new Order("order", 10);
+        order.setId(1);
+//        Mockito.when(keyHolder.getKey()).thenReturn(1);
+        Mockito.doReturn(1).when(keyHolder).getKey();
         Mockito.when(orderDao.createOrder(order)).thenReturn(order);
         Assertions.assertEquals(order, orderDao.createOrder(order));
     }
 
-    @Test
-    @DisplayName("Получение id заказа")
-    void getOrderId() throws Exception {
-        Order order = new Order("order", 10);
-        order.setId(1);
-        Mockito.when(orderDao.getOrderId(order.getName())).thenReturn(1);
-        Assertions.assertEquals(1, orderDao.getOrderId(order.getName()));
-    }
 }

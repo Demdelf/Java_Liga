@@ -1,13 +1,15 @@
 package com.lesson4.model;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 
 /**
  * Заказ
  */
 @Data
+@AllArgsConstructor
+@RequiredArgsConstructor
+@NoArgsConstructor
 public class Order {
     /**
      * Индификатор заказа

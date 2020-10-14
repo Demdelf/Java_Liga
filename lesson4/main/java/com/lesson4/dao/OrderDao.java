@@ -4,7 +4,12 @@ import com.lesson4.model.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+
+import java.sql.PreparedStatement;
 
 /**
  * DAO для обработки заказов
@@ -22,25 +27,24 @@ public class OrderDao {
      */
     private final JdbcTemplate jdbcTemplate;
 
+    protected KeyHolder keyHolder = new GeneratedKeyHolder();
+
     /**
      * Добавляет заказ в базу данных
      * @param order заказ
      * @return заказ добавленный в базу данных
      */
     public Order createOrder(Order order) {
-        jdbcTemplate.update(SQL_INSERT, order.getName(), order.getPrice(), order.getCustomer_id());
-        order.setId(getOrderId(order.getName()));
+
+        jdbcTemplate.update(connection -> {
+                    PreparedStatement ps = connection.prepareStatement(SQL_INSERT, 1);
+                    ps.setString(1, order.getName());
+                    ps.setInt(2, order.getPrice());
+                    ps.setInt(3, order.getCustomer_id());
+                    return ps;
+                }, keyHolder
+        );
+        order.setId((int) keyHolder.getKey());
         return order;
     }
-
-    /**
-     * Возвращает id заказа по названию
-     * @param orderName название заказа
-     * @return id заказа
-     */
-    public int getOrderId(String orderName){
-        String sql = "SELECT `id` FROM `Order` where `name` = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[] { orderName }, Integer.class);
-    }
 }
-

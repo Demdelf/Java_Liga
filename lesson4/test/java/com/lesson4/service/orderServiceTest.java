@@ -33,12 +33,4 @@ public class orderServiceTest {
         Assertions.assertEquals(order, orderService.createOrder(order));
     }
 
-    @Test
-    @DisplayName("Получение id заказа")
-    void getOrderId() throws Exception {
-        Order order = new Order("order", 10);
-        order.setId(1);
-        Mockito.when(orderDao.getOrderId(order.getName())).thenReturn(1);
-        Assertions.assertEquals(1, orderService.getOrderId(order));
-    }
 }

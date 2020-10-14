@@ -22,13 +22,4 @@ public class OrderService {
     public Order createOrder(Order order){
         return orderDao.createOrder(order);
     }
-
-    /**
-     * Возвращает id заказа
-     * @param order заказ
-     * @return id заказа
-     */
-    public int getOrderId(Order order){
-        return orderDao.getOrderId(order.getName());
-    }
 }
