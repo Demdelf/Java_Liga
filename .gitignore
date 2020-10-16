@@ -1,7 +1,6 @@
 # Folders
 build
 generated
-.gradle
 node_modules
 classes
 target
@@ -11,7 +10,6 @@ lesson4/SpringError
 jspm_packages
 tmp
 **/target/
-!gradle/wrapper/gradle-wrapper.jar
 
 ### STS ###
 .apt_generated
