@@ -1,5 +1,4 @@
 # Folders
-build
 generated
 node_modules
 classes
@@ -19,11 +18,13 @@ tmp
 .settings
 .springBeans
 
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
+
 
 ### OS generated files ###
 .DS_Store

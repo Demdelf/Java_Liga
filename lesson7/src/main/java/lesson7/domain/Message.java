@@ -3,36 +3,56 @@ package lesson7.domain;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Сообщение
+ */
 @Entity
 @Table(name = "MESSAGE")
 public class Message {
 
+    /**
+     * Идентификатор сообщения
+     */
     @Id
     @Column(name = "ID")
     @GeneratedValue(generator = "UUIDCustomGenerator")
     @GenericGenerator(name = "UUIDCustomGenerator", strategy = "lesson7.util.UUIDCustomGenerator")
     private UUID id;
 
+    /**
+     * Текст сообщения
+     */
     @Column(name = "TEXT")
     private String text;
 
-    @Column(name = "SENDER")
-    private UUID sender;
-
-    @Column(name = "RECEIVER")
-    private UUID receiver;
-
+    /**
+     * Время отправки сообщения
+     */
     @Column(name = "DATE")
-    private Date date;
+    private LocalDateTime date;
 
-    public Message(String text, UUID sender, UUID receiver, Date date) {
+    /**
+     * Отправитель
+     */
+    @ManyToOne
+    @JoinColumn(name = "sender")
+    private User sender;
+
+    /**
+     * Получатель
+     */
+    @ManyToOne
+    @JoinColumn(name = "receiver")
+    private User receiver;
+
+    public Message(String text, User sender, User receiver, LocalDateTime date) {
         this.text = text;
+        this.date = date;
         this.sender = sender;
         this.receiver = receiver;
-        this.date = date;
     }
 
     public Message() {
@@ -54,27 +74,37 @@ public class Message {
         this.id = id;
     }
 
-    public UUID getSender() {
-        return sender;
-    }
-
-    public void setSender(UUID sender) {
-        this.sender = sender;
-    }
-
-    public UUID getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(UUID receiver) {
-        this.receiver = receiver;
-    }
-
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
+    public User getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "text='" + text + '\'' +
+                ", date=" + date +
+                ", sender=" + sender.getFirstName() + " " + sender.getLastName() +
+                ", receiver=" +  receiver.getFirstName() + " " + receiver.getLastName()  +
+                '}';
     }
 }

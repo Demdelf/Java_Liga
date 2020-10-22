@@ -1,59 +1,61 @@
 package lesson7.service;
 
-import lesson7.config.JpaConfig;
-import lesson7.domain.Book;
+import lesson7.domain.Message;
 import lesson7.domain.User;
 
-import javax.persistence.EntityManager;
-import java.sql.Date;
-import java.util.Calendar;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+/**
+ * Класс для проверки функциональности
+ */
 public class BasicService {
+
+    UserService userService = new UserService();
+
+    MessageService messageService = new MessageService();
+
     /**
-     * Пример записи и чтения из БД
+     * Метод для проверки функциональности
      */
-    public static void persistExample() {
-        /// открываем сессию
-        EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
-        /*try {
-            /// открываем транзакцию
-            entityManager.getTransaction().begin();
+    public void example(){
+        User user1 = new User("Dima", "A", "M");
+        user1.setBirthday(LocalDate.of(1988, 1, 1));
+        userService.saveUser(user1);
+        User user2 = new User("Ivan", "Ch", "S");
+        user2.setBirthday(LocalDate.of(1986, 2, 2));
+        userService.saveUser(user2);
+        User user3 = new User("Serge", "Pe", "R");
+        user3.setBirthday(LocalDate.of(1990, 10, 22));
+        userService.saveUser(user3);
 
-            /// создаём сущность
-            *//*User user = new User(
-                    "Dima",
-                    "A",
-                    "M",
-                    new Date(1L)
-            );*//*
+        Message message1 = new Message("Hi Ivan", user1, user2, LocalDateTime.now());
+        messageService.saveMessage(message1);
+        Message message2 = new Message("Hi Dima", user2, user1, LocalDateTime.now());
+        messageService.saveMessage(message2);
+        Message message3 = new Message("Hi Serge", user1, user3, LocalDateTime.now());
+        messageService.saveMessage(message3);
+        Message message4 = new Message("Hi Dima", user3, user1, LocalDateTime.now());
+        messageService.saveMessage(message4);
 
-            Book book = new Book("new");
+        System.out.println("All messages of " + user1.toString());
+        for (Message m: userService.getAllMessages(user1)
+        ) {
+            System.out.println(m.toString());
+        }
 
-            /// записываем в базу
-            entityManager.persist(book);
-            entityManager.getTransaction().commit();
-        } finally {
-            entityManager.close();
-        }*/
+        System.out.println("All dialogs of " + user1.toString());
+        for (User u: userService.getUserDialogs(user1)
+        ) {
+            System.out.println();
 
-        try {
-            /// открываем транзакцию
-            entityManager.getTransaction().begin();
+            System.out.println(u.toString());
+            System.out.println("Сообщения:");
+            for (Message m: userService.getDialogMessages(user1, u)
+            ) {
 
-            /// создаём сущность
-            User user = new User(
-                    "Dima",
-                    "A",
-                    "M",
-                    new Date(1L)
-            );
-
-            /// записываем в базу
-            entityManager.persist(user);
-            entityManager.getTransaction().commit();
-        } finally {
-            entityManager.close();
+                System.out.println(m.toString());
+            }
         }
     }
 }
