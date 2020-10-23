@@ -1,7 +1,7 @@
 package com.lesson4.service;
 
 import com.lesson4.dao.OrderDao;
-import com.lesson4.model.Order;
+import com.lesson4.domain.Order;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

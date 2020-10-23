@@ -1,6 +1,6 @@
 package com.lesson4.controller;
 
-import com.lesson4.model.Order;
+import com.lesson4.domain.Order;
 import com.lesson4.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,8 +26,8 @@ public class OrderController {
      * @return JSON созданного заказа
      */
     @RequestMapping(value = "/api/v1/order", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> createOrder(@RequestBody Order order) {
+    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
         Order createdOrder = orderService.createOrder(order);
-        return new ResponseEntity<>(createdOrder, HttpStatus.OK);
+        return new ResponseEntity<Order>(createdOrder, HttpStatus.OK);
     }
 }

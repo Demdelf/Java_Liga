@@ -1,7 +1,7 @@
 package com.lesson4.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lesson4.model.Order;
+import com.lesson4.domain.Order;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

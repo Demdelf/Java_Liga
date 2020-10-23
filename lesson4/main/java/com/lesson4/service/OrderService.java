@@ -1,7 +1,7 @@
 package com.lesson4.service;
 
 import com.lesson4.dao.OrderDao;
-import com.lesson4.model.Order;
+import com.lesson4.domain.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,15 +1,13 @@
 package com.lesson4.dao;
 
-import com.lesson4.model.Order;
+import com.lesson4.domain.Order;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 
 /**
  * DAO для обработки заказов
@@ -21,13 +19,13 @@ public class OrderDao {
      * Шаблон строки для запроса в базу данных
      */
     private static final String SQL_INSERT =
-            "INSERT INTO `Order` (`name`, `price`, `customer_id`) VALUES (?, ? , ?);";
+            "INSERT INTO Orders (name, price, customer_id) VALUES (?, ? , ?);";
     /**
      * Исполнитель запросов к базе данных
      */
     private final JdbcTemplate jdbcTemplate;
 
-    protected KeyHolder keyHolder = new GeneratedKeyHolder();
+    private final KeyHolder keyHolder;
 
     /**
      * Добавляет заказ в базу данных
@@ -37,12 +35,12 @@ public class OrderDao {
     public Order createOrder(Order order) {
 
         jdbcTemplate.update(connection -> {
-                    PreparedStatement ps = connection.prepareStatement(SQL_INSERT, 1);
-                    ps.setString(1, order.getName());
-                    ps.setInt(2, order.getPrice());
-                    ps.setInt(3, order.getCustomer_id());
-                    return ps;
-                }, keyHolder
+            PreparedStatement ps = connection.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, order.getName());
+            ps.setInt(2, order.getPrice());
+            ps.setInt(3, order.getCustomerId());
+            return ps;
+        }, keyHolder
         );
         order.setId((int) keyHolder.getKey());
         return order;
