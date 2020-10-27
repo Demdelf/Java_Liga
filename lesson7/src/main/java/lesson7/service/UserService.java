@@ -6,6 +6,7 @@ import lesson7.domain.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Сервисный слой для пользователя
@@ -67,6 +68,8 @@ public class UserService {
     }
 
 
+
+
     /**
      * Получение всех пользователей с кем переписывался данный пользователь
      * @param user пользователь
@@ -84,6 +87,10 @@ public class UserService {
             checkAndAddUser(user, users, senderUser);
         }
         return users;
+    }
+
+    public List<User> getUserDialogsFromDao(User user){
+        return userDao.getAllDialogs(user);
     }
 
     /**

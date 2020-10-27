@@ -4,6 +4,7 @@ import lesson7.dao.MessageDao;
 import lesson7.domain.Message;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Сервисный слой для сообщений
@@ -44,6 +45,10 @@ public class MessageService {
      */
     public List<Message> getAll(){
         return messageDao.getAll();
+    }
+
+    public Message getMessageById(UUID id){
+        return messageDao.getMessageById(id);
     }
 
 }

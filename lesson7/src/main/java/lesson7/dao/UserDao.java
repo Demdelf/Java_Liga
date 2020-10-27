@@ -5,10 +5,11 @@ import lesson7.domain.Message;
 import lesson7.domain.User;
 
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Слой DAO для пользователя
@@ -35,8 +36,9 @@ public class UserDao {
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            entityManager.close();
             throw e;
+        }finally {
+            entityManager.close();
         }
 
         return user;
@@ -62,8 +64,9 @@ public class UserDao {
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            entityManager.close();
             throw e;
+        }finally {
+            entityManager.close();
         }
 
         return result;
@@ -114,17 +117,40 @@ public class UserDao {
      */
     public List<Message> getAllMessages(User user) {
         EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
-
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Message> query = criteriaBuilder.createQuery(Message.class);
 
         Root<Message> root = query.from(Message.class);
         query.select(root)
                 .groupBy(root)
-                .where(criteriaBuilder.or(criteriaBuilder.equal(root.get("sender"), user)
+                .where(
+                        criteriaBuilder.or(criteriaBuilder.equal(root.get("sender"), user)
                         , criteriaBuilder.equal(root.get("receiver"), user)));
 
         return entityManager.createQuery(query).getResultList();
+    }
+
+
+
+    public List<User> getAllDialogs(User user) {
+        EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
+
+        Root<Message> root = query.from(Message.class);
+        query.select(root.get("receiver"))
+                .where(
+                        criteriaBuilder.equal(root.get("sender"), user)
+                );
+        List<User> users = entityManager.createQuery(query).getResultList();
+        query.select(root.get("sender"))
+                .where(
+                        criteriaBuilder.equal(root.get("receiver"), user)
+                );
+        users.addAll(entityManager.createQuery(query).getResultList());
+
+        return users.stream().distinct().collect(Collectors.toList());
     }
 
 
@@ -143,11 +169,26 @@ public class UserDao {
         Root<Message> root = query.from(Message.class);
         query.select(root)
                 .groupBy(root)
-                .where(criteriaBuilder.or(criteriaBuilder.and(criteriaBuilder.equal(root.get("sender"), user1),
-                        criteriaBuilder.equal(root.get("receiver"), user2))
-                        , criteriaBuilder.and(criteriaBuilder.equal(root.get("sender"), user2),
-                                criteriaBuilder.equal(root.get("receiver"), user1))));
+                .where(
+                        criteriaBuilder.or(
+                                usersAreInterlocutors(criteriaBuilder, root, user1, user2)
+                                , usersAreInterlocutors(criteriaBuilder, root, user2, user1)
+                        )
+                );
+        List<Message> messages = entityManager.createQuery(query).getResultList();
+        return messages;
+    }
 
-        return entityManager.createQuery(query).getResultList();
+    /**
+     * Проверка являются ли пользователи собеседниками
+     * @param criteriaBuilder создатель критериев запросов
+     * @param root корневой тип запросов
+     * @param user1 первый пользователь
+     * @param user2 второй пользователь
+     * @return Предикат о том, являются ли пользователи собеседниками
+     */
+    private Predicate usersAreInterlocutors(CriteriaBuilder criteriaBuilder, Root<Message> root, User user1, User user2){
+        return criteriaBuilder.and(criteriaBuilder.equal(root.get("sender"), user1),
+                criteriaBuilder.equal(root.get("receiver"), user2));
     }
 }

@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.UUID;
 
 public class MessageDao {
     /**Создание или обновление сообщения
@@ -25,13 +26,13 @@ public class MessageDao {
             } else {
                 message = entityManager.merge(message);
             }
-
             entityManager.getTransaction().commit();
 
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            entityManager.close();
             throw e;
+        }finally {
+            entityManager.close();
         }
 
         return message;
@@ -62,8 +63,10 @@ public class MessageDao {
 
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            entityManager.close();
+
             throw e;
+        }finally {
+            entityManager.close();
         }
 
         return result;
@@ -81,7 +84,13 @@ public class MessageDao {
 
         Root<Message> root = query.from(Message.class);
         query.select(root);
+//        entityManager.
 
         return entityManager.createQuery(query).getResultList();
+    }
+
+    public Message getMessageById(UUID id) {
+        EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
+        return entityManager.find(Message.class, id);
     }
 }
