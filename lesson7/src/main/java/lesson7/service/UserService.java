@@ -89,6 +89,11 @@ public class UserService {
         return users;
     }
 
+    /**
+     * Получение всех пользователей с кем переписывался данный пользователь
+     * @param user пользователь
+     * @return список пользователей
+     */
     public List<User> getUserDialogsFromDao(User user){
         return userDao.getAllDialogs(user);
     }

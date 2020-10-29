@@ -6,9 +6,8 @@ import lesson7.domain.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -19,6 +18,7 @@ public class UserDao {
 
     /**
      * Создание или обновление пользователя
+     *
      * @param user пользователь для создания
      * @return созданный пользователь
      */
@@ -27,7 +27,7 @@ public class UserDao {
         try {
             entityManager.getTransaction().begin();
 
-            if (user.getUser_id() == null) {
+            if (user.getId() == null) {
                 entityManager.persist(user);
             } else {
                 user = entityManager.merge(user);
@@ -37,7 +37,7 @@ public class UserDao {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw e;
-        }finally {
+        } finally {
             entityManager.close();
         }
 
@@ -46,6 +46,7 @@ public class UserDao {
 
     /**
      * Удаление пользователя
+     *
      * @param user пользователь для удаления
      * @return успешно ли выполнено удаление
      */
@@ -55,7 +56,7 @@ public class UserDao {
         try {
             entityManager.getTransaction().begin();
 
-            if (user.getUser_id() != null) {
+            if (user.getId() != null) {
                 entityManager.remove(user);
                 result = true;
             } else {
@@ -65,7 +66,7 @@ public class UserDao {
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
             throw e;
-        }finally {
+        } finally {
             entityManager.close();
         }
 
@@ -74,9 +75,10 @@ public class UserDao {
 
     /**
      * Получение всех пользователей
+     *
      * @return список пользователей
      */
-    public List<User> getAll(){
+    public List<User> getAll() {
         EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
 
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
@@ -90,6 +92,7 @@ public class UserDao {
 
     /**
      * Получение пользователя по ФИО
+     *
      * @param user пользователь
      * @return найденный пользователь
      */
@@ -112,6 +115,7 @@ public class UserDao {
 
     /**
      * Получение всех сообщений для данного пользователя
+     *
      * @param user пользователь
      * @return список сообщений
      */
@@ -124,38 +128,49 @@ public class UserDao {
         query.select(root)
                 .groupBy(root)
                 .where(
-                        criteriaBuilder.or(criteriaBuilder.equal(root.get("sender"), user)
-                        , criteriaBuilder.equal(root.get("receiver"), user)));
+                        criteriaBuilder.or(
+                                criteriaBuilder.equal(root.get("sender"), user)
+                                , criteriaBuilder.equal(root.get("receiver"), user))
+                );
 
         return entityManager.createQuery(query).getResultList();
     }
 
 
-
+    /**
+     * Получение всех диалогов пользователя
+     *
+     * @param user пользователь
+     * @return список собеседников пользователя
+     */
     public List<User> getAllDialogs(User user) {
         EntityManager entityManager = JpaConfig.getEntityManagerFactory().createEntityManager();
 
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
-
-        Root<Message> root = query.from(Message.class);
-        query.select(root.get("receiver"))
-                .where(
-                        criteriaBuilder.equal(root.get("sender"), user)
-                );
-        List<User> users = entityManager.createQuery(query).getResultList();
-        query.select(root.get("sender"))
-                .where(
-                        criteriaBuilder.equal(root.get("receiver"), user)
-                );
-        users.addAll(entityManager.createQuery(query).getResultList());
-
-        return users.stream().distinct().collect(Collectors.toList());
+        Root<User> u = query.from(User.class);
+        Root<Message> m = query.from(Message.class);
+        query.select(u)
+                .distinct(true)
+                .groupBy(u)
+        .where(
+                criteriaBuilder.or(
+                                criteriaBuilder.and(
+                                    criteriaBuilder.equal(m.get("sender"), user),
+                                    criteriaBuilder.equal(m.get("receiver"), u)
+                                ),
+                                criteriaBuilder.and(
+                                        criteriaBuilder.equal(m.get("receiver"), user),
+                                        criteriaBuilder.equal(m.get("sender"), u)
+                                )
+        ));
+        return entityManager.createQuery(query).getResultList();
     }
 
 
     /**
      * Получение всех сообщений между данными пользователями
+     *
      * @param user1 первый пользователь
      * @param user2 второй пользователь
      * @return @return список сообщений
@@ -181,14 +196,17 @@ public class UserDao {
 
     /**
      * Проверка являются ли пользователи собеседниками
+     *
      * @param criteriaBuilder создатель критериев запросов
-     * @param root корневой тип запросов
-     * @param user1 первый пользователь
-     * @param user2 второй пользователь
+     * @param root            корневой тип запросов
+     * @param user1           первый пользователь
+     * @param user2           второй пользователь
      * @return Предикат о том, являются ли пользователи собеседниками
      */
-    private Predicate usersAreInterlocutors(CriteriaBuilder criteriaBuilder, Root<Message> root, User user1, User user2){
-        return criteriaBuilder.and(criteriaBuilder.equal(root.get("sender"), user1),
-                criteriaBuilder.equal(root.get("receiver"), user2));
+    private Predicate usersAreInterlocutors(CriteriaBuilder criteriaBuilder, Root<Message> root, User user1, User user2) {
+        return criteriaBuilder.and(
+                criteriaBuilder.equal(root.get("sender"), user1),
+                criteriaBuilder.equal(root.get("receiver"), user2)
+        );
     }
 }

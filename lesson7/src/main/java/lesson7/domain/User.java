@@ -22,7 +22,7 @@ public class User {
     @Column(name = "ID")
     @GeneratedValue(generator = "UUIDCustomGenerator")
     @GenericGenerator(name = "UUIDCustomGenerator", strategy = "lesson7.util.UUIDCustomGenerator")
-    private UUID user_id;
+    private UUID id;
 
     /**
      * Имя пользователя
@@ -78,12 +78,12 @@ public class User {
         this.middleName = middleName;
     }
 
-    public UUID getUser_id() {
-        return user_id;
+    public UUID getId() {
+        return id;
     }
 
-    public void setUser_id(UUID id) {
-        this.user_id = id;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -133,11 +133,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(user_id, user.user_id);
+        return Objects.equals(id, user.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user_id);
+        return Objects.hash(id);
     }
 }

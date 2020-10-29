@@ -36,6 +36,10 @@ public class BasicService {
         user4.setBirthday(LocalDate.of(1999, 10, 22));
         userService.saveUser(user4);
 
+        User user5 = new User("Jack", "Pe", "R");
+        user5.setBirthday(LocalDate.of(1999, 10, 22));
+        userService.saveUser(user5);
+
         Message message1 = new Message("Hi Ivan", user1, user2, LocalDateTime.now());
         message1 = messageService.saveMessage(message1);
         Message message2 = new Message("Hi Dima", user2, user1, LocalDateTime.now());
@@ -44,8 +48,10 @@ public class BasicService {
         messageService.saveMessage(message3);
         Message message4 = new Message("Hi Dima", user3, user1, LocalDateTime.now());
         messageService.saveMessage(message4);
-        Message message5 = new Message("Hi Dima", user4, user3, LocalDateTime.now());
+        Message message5 = new Message("Hi Mick", user1, user4, LocalDateTime.now());
         messageService.saveMessage(message5);
+        Message message6 = new Message("Hi Dima", user5, user1, LocalDateTime.now());
+        messageService.saveMessage(message6);
 
         System.out.println("All messages of " + user1.toString());
         for (Message m: userService.getAllMessages(user1)
