@@ -6,9 +6,8 @@ import lesson7.domain.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 /**
  * Слой DAO для пользователя
@@ -91,7 +90,7 @@ public class UserDao {
     }
 
     /**
-     * Получение пользователя по ФИО
+     * Получение пользователя по FIO
      *
      * @param user пользователь
      * @return найденный пользователь
@@ -149,21 +148,24 @@ public class UserDao {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
         Root<User> u = query.from(User.class);
-        Root<Message> m = query.from(Message.class);
-        query.select(u)
-                .distinct(true)
-                .groupBy(u)
-        .where(
-                criteriaBuilder.or(
+        Subquery<UUID> subquery = query.subquery(UUID.class);
+        Root<Message> subroot = subquery.from(Message.class);
+        subquery
+                .select(u.get("id"))
+                .where(criteriaBuilder.or(
                                 criteriaBuilder.and(
-                                    criteriaBuilder.equal(m.get("sender"), user),
-                                    criteriaBuilder.equal(m.get("receiver"), u)
+                                    criteriaBuilder.equal(subroot.get("sender"), user),
+                                    criteriaBuilder.equal(subroot.get("receiver"), u)
                                 ),
                                 criteriaBuilder.and(
-                                        criteriaBuilder.equal(m.get("receiver"), user),
-                                        criteriaBuilder.equal(m.get("sender"), u)
+                                        criteriaBuilder.equal(subroot.get("receiver"), user),
+                                        criteriaBuilder.equal(subroot.get("sender"), u)
                                 )
-        ));
+                ));
+        query.select(u)
+                .distinct(true)
+                .where(criteriaBuilder.in(u.get("id")).value(subquery));
+
         return entityManager.createQuery(query).getResultList();
     }
 
