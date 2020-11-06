@@ -7,8 +7,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import org.mockito.MockitoAnnotations;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.KeyHolder;
 
 /**
@@ -36,7 +40,12 @@ public class OrderDaoTest {
         int id = 1;
         Mockito.when(keyHolder.getKey()).thenReturn(id);
         Assertions.assertEquals(id, orderDao.createOrder(order).getId());
-
+        int rows = 1;
+        Mockito.when(jdbcTemplate.update(any(PreparedStatementCreator.class), any(KeyHolder.class)))
+                .thenReturn(rows);
+        verify(jdbcTemplate, times(1))
+                .update(any(PreparedStatementCreator.class), any(KeyHolder.class));
+        verify(keyHolder, times(1)).getKey();
     }
 
 }
