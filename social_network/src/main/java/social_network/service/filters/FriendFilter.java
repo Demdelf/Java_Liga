@@ -15,12 +15,12 @@ import static org.springframework.data.jpa.domain.Specification.where;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class FriendFilter implements Filter<User>{
+public class FriendFilter extends UserFilter {
 
     private User user;
 
     @Override
     public Specification<User> toSpecification() {
-        return where(BaseSpecification.isFriend(user));
+        return where(BaseSpecification.isFriend(user)).and(super.toSpecification());
     }
 }

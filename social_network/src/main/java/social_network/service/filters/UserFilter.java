@@ -26,12 +26,41 @@ public class UserFilter implements Filter<User> {
    * Фамилия пользователя
    */
   private String lastNameLike;
-
+  
+  /**
+   * Минимальный возраст
+   */
+  private Integer minAge;
+  
+  /**
+   * Максимальный возраст
+   */
+  private Integer maxAge;
+  
+  /**
+   * Пол
+   */
+  private Character sexEqual;
+  
+  /**
+   * Интересы
+   */
+  private String interestLike;
+  
+  /**
+   * Город
+   */
+  private String cityLike;
 
 
   @Override
   public Specification<User> toSpecification() {
     return where(BaseSpecification.<User>like("firstName", firstNameLike))
-            .and(BaseSpecification.like("lastName", lastNameLike));
+            .and(BaseSpecification.like("lastName", lastNameLike))
+            .and(BaseSpecification.greaterThanOrEqualTo("age", minAge))
+            .and(BaseSpecification.lessThan("age", maxAge))
+            .and(BaseSpecification.equal("sex", sexEqual))
+            .and(BaseSpecification.like("interest", interestLike))
+            .and(BaseSpecification.like("city", cityLike));
   }
 }

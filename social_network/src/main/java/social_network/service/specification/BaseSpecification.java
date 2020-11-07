@@ -28,6 +28,34 @@ public class BaseSpecification {
                 : (root, query, cb) ->
                 cb.like(cb.lower(root.get(column)), "%" + value.toLowerCase() + "%");
     }
+    
+    /**
+     * Поиск по величине поля >= переданного значения
+     *
+     * @param column колонка таблицы сущности T
+     * @param value значения для поиска
+     * @return спецификация
+     */
+    public static <T> Specification<T> greaterThanOrEqualTo(final String column, final Integer value) {
+        return StringUtils.isEmpty(column)
+                ? null
+                : (root, query, cb) ->
+                cb.greaterThanOrEqualTo(root.get(column), value);
+    }
+    
+    /**
+     * Поиск по величине поля < переданного значения
+     *
+     * @param column колонка таблицы сущности T
+     * @param value значения для поиска
+     * @return спецификация
+     */
+    public static <T> Specification<T> lessThan(final String column, final Integer value) {
+        return StringUtils.isEmpty(column)
+                ? null
+                : (root, query, cb) ->
+                cb.lessThan(root.get(column), value);
+    }
 
     /**
      * Поиск по эквивалентности полю
@@ -90,7 +118,7 @@ public class BaseSpecification {
      * @param user пользователь
      * @return спецификация
      */
-    public static <T> Specification<T> isFriend(User user) {
+    public static Specification<User> isFriend(User user) {
         return user.getId().equals(null)
                 ? null
                 : (root, query, cb) ->
