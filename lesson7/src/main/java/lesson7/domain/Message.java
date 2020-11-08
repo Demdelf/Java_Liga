@@ -37,7 +37,7 @@ public class Message {
     /**
      * Отправитель
      */
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "sender")
     private User sender;
 

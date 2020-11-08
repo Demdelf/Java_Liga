@@ -29,7 +29,6 @@ public class UserFilterTest {
         userJohn.setId(UUID.randomUUID());
         userJohn.setFirstName("John");
         userJohn.setLastName("Doe");
-
         userJohn.setAge(22);
         allUsers.add(userJohn);
 

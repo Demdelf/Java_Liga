@@ -72,7 +72,7 @@ public class UserService {
      */
     @Transactional
     public UUID create(UserRegistrationDto userDto) {
-        User user = convertUserRegistrationDtoToUser(userDto, new User());
+        User user = convertUserRegistrationDtoToUser(userDto);
         user = userRepository.save(user);
 
         return user.getId();
@@ -150,7 +150,8 @@ public class UserService {
      * @param dto данные о пользователе
      * @return пользователь
      */
-    public User convertUserRegistrationDtoToUser(UserRegistrationDto dto, User user) {
+    public User convertUserRegistrationDtoToUser(UserRegistrationDto dto) {
+        User user = new User();
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
         user.setCity(dto.getCity());
@@ -183,7 +184,7 @@ public class UserService {
      * @param user пользователь
      * @return DTO
      */
-    private UserPageDto convertToUserPageDto(User user) {
+    public UserPageDto convertToUserPageDto(User user) {
         UserPageDto dto = new UserPageDto();
         dto.setId(user.getId());
         dto.setFirstName(user.getFirstName());
@@ -200,6 +201,7 @@ public class UserService {
      * Преобразование DTO-сущности в {@link User}
      *
      * @param dto данные о пользователе
+     * @param user
      * @return пользователь
      */
     private User convertUserEditDtoToUser(UserEditDto dto, User user) {

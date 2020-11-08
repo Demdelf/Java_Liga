@@ -50,8 +50,10 @@ public class BasicService {
         messageService.saveMessage(message4);
         Message message5 = new Message("Hi Mick", user1, user4, LocalDateTime.now());
         messageService.saveMessage(message5);
-        Message message6 = new Message("Hi Dima", user5, user1, LocalDateTime.now());
+        Message message6 = new Message("Hi Ivan", user5, user2, LocalDateTime.now());
         messageService.saveMessage(message6);
+        Message message7 = new Message("Hi Jack", user2, user5, LocalDateTime.now());
+        messageService.saveMessage(message7);
 
         System.out.println("All messages of " + user1.toString());
         for (Message m: userService.getAllMessages(user1)

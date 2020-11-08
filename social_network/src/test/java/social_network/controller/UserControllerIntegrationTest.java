@@ -13,6 +13,7 @@ import social_network.domain.User;
 import java.util.UUID;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -29,7 +30,7 @@ public class UserControllerIntegrationTest {
     ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("Сохранение заказа")
+    @DisplayName("Сохранение пользователя")
     public void createUser() throws Exception {
         User user = new User();
         UUID uuid = UUID.randomUUID();
@@ -52,4 +53,23 @@ public class UserControllerIntegrationTest {
                         "    \"friends\": null\n" +
                         "}"));
     }
+    
+    @Test
+    @DisplayName("Получение пользователя по id")
+    public void testFindOne() throws Exception {
+        mvc.perform(get("/users/5d2ce0ee-8254-4dd3-abff-28a63925cec2")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(""))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\n" +
+                        "    \"id\": \"5d2ce0ee-8254-4dd3-abff-28a63925cec2\",\n" +
+                        "    \"firstName\": \"Petr\",\n" +
+                        "    \"lastName\": \"Petrov\",\n" +
+                        "    \"age\": 30,\n" +
+                        "    \"sex\": null,\n" +
+                        "    \"interest\": null,\n" +
+                        "    \"city\": null\n" +
+                        "}"));
+    }
+    
 }
