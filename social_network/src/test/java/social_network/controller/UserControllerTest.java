@@ -6,8 +6,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import social_network.domain.User;
 import social_network.dto.UserPageDto;
 import social_network.dto.UserRegistrationDto;
@@ -40,7 +41,7 @@ public class UserControllerTest {
         userDto.setFirstName("User");
         userDto.setLastName("Userov");
         userDto.setAge(25);
-        userDto.setSex('M');
+        userDto.setSex("M");
         userDto.setInterest("Some");
         userDto.setCity("Kukuevo");
     }
@@ -54,7 +55,8 @@ public class UserControllerTest {
         when(userService.convertUserRegistrationDtoToUser(dto)).thenReturn(user);
         User userFromDto = userService.convertUserRegistrationDtoToUser(dto);
         when(userService.create(dto)).thenReturn(user.getId());
-        Assertions.assertEquals(userFromDto.getId(), userController.create(dto));
+        Assertions.assertEquals(ResponseEntity.status(HttpStatus.CREATED)
+                .body(userFromDto.getId()), userController.create(dto));
     }
     
     @Test
@@ -62,7 +64,7 @@ public class UserControllerTest {
     void testFindOne() throws Exception {
         when(userService.findOne(any(UUID.class))).thenReturn(userDto);
     
-        UserPageDto userPageDto = userController.findOne(UUID.randomUUID());
+        UserPageDto userPageDto = userController.get(UUID.randomUUID());
         assertNotNull(userPageDto);
         assertEquals(userDto.getId(), userPageDto.getId());
         assertEquals(userDto.getFirstName(), userPageDto.getFirstName());

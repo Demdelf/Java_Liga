@@ -37,7 +37,7 @@ public class UserServiceTest {
         user.setFirstName("User");
         user.setLastName("Userov");
         user.setAge(25);
-        user.setSex('M');
+        user.setSex("M");
         user.setInterest("Some");
         user.setCity("Kukuevo");
         
@@ -72,9 +72,6 @@ public class UserServiceTest {
         userDto.setFirstName("User");
         userDto.setLastName("Userov");
         userDto.setAge(25);
-        userDto.setSex('M');
-        userDto.setInterest("Some");
-        userDto.setCity("Kukuevo");
 
         UUID userStroredId = userService.create(userDto);
         assertNotNull(userStroredId);
