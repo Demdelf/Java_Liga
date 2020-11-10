@@ -1,3 +1,4 @@
+/* Создание таблицы пользователей */
 create table if not exists users
 (
     id         varchar(36)
@@ -7,5 +8,5 @@ create table if not exists users
     age        integer,
     city       varchar(255),
     interest   varchar(255),
-    sex        char
+    sex        varchar(1)
 );

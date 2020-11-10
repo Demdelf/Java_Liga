@@ -1,3 +1,4 @@
+/* Добавление пользователей в таблицу */
 insert into users (id ,first_name, last_name, age) values ('5d2ce0ee-8254-4dd3-abff-28a63925cec1', 'Dima', 'Maslov', 32);
 insert into users (id ,first_name, last_name, age) values ('5d2ce0ee-8254-4dd3-abff-28a63925cec2', 'Petr', 'Petrov', 30);
 insert into users (id ,first_name, last_name, age) values ('5d2ce0ee-8254-4dd3-abff-28a63925cec3', 'Makar', 'Makarov', 33);
