@@ -40,7 +40,7 @@ public class UserFilter implements Filter<User> {
   /**
    * Пол
    */
-  private Character sexEqual;
+  private String sexEqual;
   
   /**
    * Интересы

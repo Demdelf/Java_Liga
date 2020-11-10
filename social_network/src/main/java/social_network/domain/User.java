@@ -3,6 +3,8 @@ package social_network.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 
 import javax.persistence.*;
@@ -39,7 +41,7 @@ public class User extends Identifiable{
     /**
      * Пол
      */
-    private Character sex;
+    private String sex;
 
     /**
      * Интересы

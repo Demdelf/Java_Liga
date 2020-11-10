@@ -31,7 +31,7 @@ public class UserPageDto {
     /**
      * Пол
      */
-    private Character sex;
+    private String sex;
 
     /**
      * Интересы
