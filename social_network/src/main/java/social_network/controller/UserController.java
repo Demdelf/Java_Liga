@@ -1,9 +1,11 @@
 package social_network.controller;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import social_network.dto.UserByListDto;
 import social_network.dto.UserEditDto;
@@ -22,39 +24,36 @@ import java.util.UUID;
 @RestController
 @RequestMapping("users")
 @RequiredArgsConstructor
-@Slf4j
 public class UserController {
 	
 	private final UserService userService;
 	
 	/**
-	 * Получить страницу с пользователями
+	 * Получить страницу с пользователями с возможностью фильтрации
 	 *
 	 * @param filter   фильтр
 	 * @param pageable настройки пагинации
 	 * @return страница с пользователями
 	 */
 	@GetMapping
-	public Page<UserByListDto> findAll(@RequestBody UserFilter filter, Pageable pageable) {
+	public Page<UserByListDto> getAllUsers(UserFilter filter, @PageableDefault(size = 3) Pageable pageable) {
 		return userService.findAll(filter, pageable);
 	}
 	
 	/**
-	 * Получить друзей пользователя по идентификатору
+	 * Получить друзей(с возможностью фильтрации) пользователя по идентификатору
 	 *
 	 * @param id идентификатор пользователя
 	 * @return страница с пользователями
 	 */
 	@GetMapping("{id}/friends")
-	public Page<UserByListDto> findAllFriends(
+	public Page<UserByListDto> getAllFriends(
 			@PathVariable UUID id
 			,@RequestBody FriendFilter filter
 			, Pageable pageable
 	) {
-		log.info("Поиск пользователя по идентификатору id={}", id);
 		return userService.findAllFriends(id, filter, pageable);
 	}
-	
 	
 	/**
 	 * Получить пользователя по идентификатору
@@ -63,8 +62,7 @@ public class UserController {
 	 * @return DTO пользователя
 	 */
 	@GetMapping("{id}")
-	public UserPageDto findOne(@PathVariable UUID id) {
-		log.info("Поиск пользователя по идентификатору id={}", id);
+	public UserPageDto get(@PathVariable UUID id) {
 		return userService.findOne(id);
 	}
 	
@@ -72,24 +70,24 @@ public class UserController {
 	 * Создать нового пользователя
 	 *
 	 * @param userDto данные пользователя в виде DTO
-	 * @return response объект с соответствующим статусом состояния (200, 400, 409)
+	 * @return response объект
 	 */
 	@PostMapping
-	public UUID create(@RequestBody @Valid UserRegistrationDto userDto) throws NoSuchFieldException {
-		log.info("Создание нового пользователя user={}", userDto.toString());
-		return userService.create(userDto);
+	public ResponseEntity<UUID> create(@RequestBody @Valid UserRegistrationDto userDto) {
+		UUID id = userService.create(userDto);
+		return new ResponseEntity<>(id, HttpStatus.CREATED);
 	}
 	
 	/**
 	 * Обновить данные существующего пользователя
 	 *
 	 * @param userDto данные пользователя в виде DTO
-	 * @return response объект с соответствующим статусом состояния (200, 400, 409)
+	 * @return response объект с соответствующим статусом состояния (200, 400, 404)
 	 */
 	@PutMapping("{id}")
-	public UUID update(@PathVariable UUID id, @RequestBody @Valid UserEditDto userDto) {
-		log.info("Изменение данных пользователя user={}", userDto.toString());
-		return userService.update(id, userDto);
+	public ResponseEntity<String> update(@PathVariable UUID id, @RequestBody @Valid UserEditDto userDto) {
+		userService.update(id, userDto);
+		return new ResponseEntity<>("User was updated, id: " + id, HttpStatus.OK);
 	}
 	
 	
@@ -98,12 +96,12 @@ public class UserController {
 	 *
 	 * @param id       идентификатор пользователя
 	 * @param friendId идентификатор друга
-	 * @return response объект с соответствующим статусом состояния (200, 400, 409)
+	 * @return response объект
 	 */
-	@PutMapping("{id}/add-friend")
-	public boolean addFriend(@PathVariable UUID id, @RequestParam UUID friendId) {
-		log.info("Изменение данных пользователя user id ={}", id);
-		return userService.addFriend(id, friendId);
+	@PostMapping("add-friend")
+	public ResponseEntity<String> addFriend(@RequestParam UUID id, @RequestParam UUID friendId) {
+		userService.addFriend(id, friendId);
+		return new ResponseEntity<>("Friend was added", HttpStatus.OK);
 	}
 	
 	/**
@@ -111,10 +109,10 @@ public class UserController {
 	 *
 	 * @param id идентификатор пользователя
 	 */
-	@DeleteMapping("{id}")
-	public void delete(@PathVariable UUID id) {
-		log.info("Удаление данных пользователя user id ={}", id);
+	@DeleteMapping
+	public ResponseEntity<String> delete(@RequestParam UUID id) {
 		userService.delete(id);
+		return new ResponseEntity<>("User was deleted", HttpStatus.OK);
 	}
 	
 	/**
@@ -123,9 +121,9 @@ public class UserController {
 	 * @param userId   идентификатор пользователя
 	 * @param friendId идентификатор друга
 	 */
-	@DeleteMapping("{user-id}/delete-friend/{friend-id}")
-	public void deleteFriend(@PathVariable("user-id") UUID userId, @PathVariable("friend-id") UUID friendId) {
-		log.info("Удаление друга friendId ={} пользователя userId ={}", friendId, userId);
+	@DeleteMapping("delete-friend")
+	public ResponseEntity<String> deleteFriend(@RequestParam UUID userId, @RequestParam UUID friendId) {
 		userService.deleteFriend(userId, friendId);
+		return new ResponseEntity<>("Friend was deleted", HttpStatus.OK);
 	}
 }
