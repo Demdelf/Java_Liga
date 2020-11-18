@@ -119,10 +119,12 @@ public class BaseSpecification {
      * @return спецификация
      */
     public static Specification<User> isFriend(User user) {
-        return user.getId().equals(null)
-                ? null
-                : (root, query, cb) ->
-                cb.isMember(user, root.get("friends"));
+        return (root, query, cb) -> {
+            
+            Join<UUID, UUID> userFriends = root.join("friends");
+            userFriends.on(cb.equal(userFriends.get("id"), user.getId()));
+            return userFriends.getOn();
+        };
     }
 
 
